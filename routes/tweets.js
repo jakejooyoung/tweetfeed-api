@@ -8,45 +8,45 @@ const filter = {
   result_type: 'recent',
   lang: 'en'
 }
+const loadTweets= (filter) => {
+  return new Promise((resolve, reject) => {
+    let a=twitter.get('search/tweets', filter, function(err, data, response){
+      if(!err){
+        console.log(data.statuses);
+        resolve(data.statuses);
+      } else {
+        reject(Error("It broke"));
+      }
+    });
+  });
+};
+const pruneTweets = (feed) => {
+    let newArray=[];
+    for (let i = 0; i < feed.length; i++){
+      let tweet = { 
+        id: feed[i].id_str ,
+        userName:feed[i].user.name,
+        userHandle:feed[i].user.screen_name,
+        userImgUrl:feed[i].user.profile_image_url,
+        content:feed[i].text,
+      }
+      newArray.push(tweet);
+    }
+    return newArray;
+};
 
 module.exports = app => {
   app.get('/tweets', (req, res, next) => {
-    const asy = async () => {
-      const tweets = await loadTweets(filter);
-      if (tweets) { res.send(tweets); }
-    };
-    asy().catch(next);
+    loadTweets(filter).then((feed) => {
+      let prunedFeed=pruneTweets(feed);
+      res.json(prunedFeed);
+    });
   });
   app.get('/tweets/:hashtag', (req, res, next) => {
     filter.q=req.params.hashtag;
-    const asy = async () => {
-      const tweets = await loadTweets(filter);
-      if (tweets) { res.send(tweets); }
-    };
-    asy().catch(next);
+    loadTweets(filter).then((feed) => {
+      let prunedFeed=pruneTweets(feed);
+      res.json(prunedFeed);
+    });
   });
 };
-
-function loadTweets(filter){
-  return twitter.get('search/tweets', filter, function(err, data, response) {
-    if(!err){
-      let feed=[];
-      for(let i = 0; i < data.statuses.length; i++){
-        let tweet = { 
-          id: data.statuses[i].id_str ,
-          userName:data.statuses[i].user.name,
-          userHandle:data.statuses[i].user.screen_name,
-          userImgUrl:data.statuses[i].user.profile_image_url,
-          content:data.statuses[i].text,
-        }
-        console.log(tweet);
-        feed.push(tweet);
-      }
-      console.log("Success");
-      return feed;
-    } else {
-      console.log("ERROR");
-      return err;
-    }
-  });
-}

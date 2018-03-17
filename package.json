@@ -4,5 +4,8 @@
   "description": "ZDK Challenge. Build a twitter feed app.",
   "main": "app.js",
   "author": "Jake Kim",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "twitter": "^1.7.1"
+  }
 }

@@ -5,9 +5,17 @@
   "main": "app.js",
   "author": "Jake Kim",
   "license": "MIT",
+  "scripts": {
+  	"start": "nodemon app.js --exec babel-node --presets env"
+  },
   "dependencies": {
     "express": "^4.16.3",
     "request": "^2.85.0",
     "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "nodemon": "^1.17.2"
   }
 }

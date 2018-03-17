@@ -6,6 +6,7 @@
   "author": "Jake Kim",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.16.3",
     "twitter": "^1.7.1"
   }
 }

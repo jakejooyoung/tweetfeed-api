@@ -13,24 +13,24 @@ module.exports = app => {
   app.get('/tweets', (req, res, next) => {
     const tweets = twitter.get('search/tweets', filter, function(err, data, response) {
       if(!err){
-        let array=[];
+        let feed=[];
         for(let i = 0; i < data.statuses.length; i++){
           let tweet=data.statuses[i];
-          let formattedTweet = { 
+          let formatted = { 
             id: tweet.id_str ,
             userName:tweet.user.name,
             userHandle:tweet.user.screen_name,
             userImgUrl:tweet.user.profile_image_url,
             content:tweet.text,
           }
-          console.log(formattedTweet);
-          array.push(formattedTweet);
+          console.log(formatted);
+          feed.push(formatted);
         }
-        res.send(tweets);
+        return feed;
       } else {
         console.log("ERROR");
-        res.send(err);
       }
+      res.send(tweets);
     });
   });
 };

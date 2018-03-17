@@ -3,10 +3,9 @@
 ### What is this repository for? ###
 
 
-This is a barebone Twitter feed api server. 
+This is a barebone Twitter feed api server. It returns a feed of 30 tweets based on your search term.
 
-It returns a feed of 30 tweets and the only parameter it can take is hashtag.
-
+Check out the demo here: https://tweetfeedmockup.com/
 
 ### How do I get set up? ###
 

@@ -12,7 +12,7 @@ const loadTweets= (filter) => {
   return new Promise((resolve, reject) => {
     let a=twitter.get('search/tweets', filter, function(err, data, response){
       if(!err){
-        console.log(data.statuses);
+        // console.log(data.statuses);
         resolve(data.statuses);
       } else {
         reject(Error("It broke"));

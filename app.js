@@ -7,7 +7,7 @@ const 	PORT = process.env.PORT || 3000,
 		HOSTNAME = "0.0.0.0";
 
 app.get('/', (req, res) => {
-  res.send('This is the zdk tweetfeed api');
+  res.send('This is the tweetfeed api server.');
 });
 
 router(app);

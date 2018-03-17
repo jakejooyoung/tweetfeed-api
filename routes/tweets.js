@@ -2,7 +2,7 @@ var Twitter = require("twitter"),
     config  = require('../config.js');
 var twitter = new Twitter(config);
 
-var filter = {
+const filter = {
   q: '#fintech',
   count: 30,
   result_type: 'recent',
@@ -11,50 +11,42 @@ var filter = {
 
 module.exports = app => {
   app.get('/tweets', (req, res, next) => {
-    const tweets = twitter.get('search/tweets', filter, function(err, data, response) {
-      if(!err){
-        let feed=[];
-        for(let i = 0; i < data.statuses.length; i++){
-          let tweet=data.statuses[i];
-          let formatted = { 
-            id: tweet.id_str ,
-            userName:tweet.user.name,
-            userHandle:tweet.user.screen_name,
-            userImgUrl:tweet.user.profile_image_url,
-            content:tweet.text,
-          }
-          console.log(formatted);
-          feed.push(formatted);
-        }
-        return feed;
-      } else {
-        console.log("ERROR");
-      }
-      res.send(tweets);
-    });
+    const asy = async () => {
+      const tweets = await loadTweets(filter);
+      if (tweets) { res.send(tweets); }
+    };
+    asy().catch(next);
   });
   app.get('/tweets/:hashtag', (req, res, next) => {
     filter.q=req.params.hashtag;
-    const tweets = twitter.get('search/tweets', filter, function(err, data, response) {
-      if(!err){
-        let feed=[];
-        for(let i = 0; i < data.statuses.length; i++){
-          let tweet=data.statuses[i];
-          let formatted = { 
-            id: tweet.id_str ,
-            userName:tweet.user.name,
-            userHandle:tweet.user.screen_name,
-            userImgUrl:tweet.user.profile_image_url,
-            content:tweet.text,
-          }
-          console.log(formatted);
-          feed.push(formatted);
-        }
-        return feed;
-      } else {
-        console.log("ERROR");
-      }
-      res.send(tweets);
-    });
+    const asy = async () => {
+      const tweets = await loadTweets(filter);
+      if (tweets) { res.send(tweets); }
+    };
+    asy().catch(next);
   });
 };
+
+function loadTweets(filter){
+  return twitter.get('search/tweets', filter, function(err, data, response) {
+    if(!err){
+      let feed=[];
+      for(let i = 0; i < data.statuses.length; i++){
+        let tweet = { 
+          id: data.statuses[i].id_str ,
+          userName:data.statuses[i].user.name,
+          userHandle:data.statuses[i].user.screen_name,
+          userImgUrl:data.statuses[i].user.profile_image_url,
+          content:data.statuses[i].text,
+        }
+        console.log(tweet);
+        feed.push(tweet);
+      }
+      console.log("Success");
+      return feed;
+    } else {
+      console.log("ERROR");
+      return err;
+    }
+  });
+}

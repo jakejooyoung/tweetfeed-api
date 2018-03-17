@@ -40,6 +40,8 @@ module.exports = app => {
     loadTweets(filter).then((feed) => {
       let prunedFeed=pruneTweets(feed);
       res.json(prunedFeed);
+    }).catch((error) => {
+      res.status(400);
     });
   });
   app.get('/tweets/:hashtag', (req, res, next) => {
@@ -47,6 +49,8 @@ module.exports = app => {
     loadTweets(filter).then((feed) => {
       let prunedFeed=pruneTweets(feed);
       res.json(prunedFeed);
+    }).catch((error) => {
+      res.status(400);
     });
   });
 };

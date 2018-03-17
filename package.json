@@ -1,0 +1,8 @@
+{
+  "name": "zdk",
+  "version": "1.0.0",
+  "description": "ZDK Challenge. Build a twitter feed app.",
+  "main": "app.js",
+  "author": "Jake Kim",
+  "license": "MIT"
+}

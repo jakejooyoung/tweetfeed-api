@@ -23,8 +23,8 @@ https://yarnpkg.com/en/docs/install
 
 #### 3. Run server ###
 ```
-	$ yarn install
-	$ yarn start
+$ yarn install
+$ yarn start
 ```
 
 Port should open to 3000.

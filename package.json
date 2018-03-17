@@ -1,12 +1,12 @@
 {
-  "name": "zdk",
+  "name": "tweetfeed-api",
   "version": "1.0.0",
-  "description": "ZDK Challenge. Build a twitter feed app.",
+  "description": "Simple twitter feed API.",
   "main": "app.js",
   "author": "Jake Kim",
   "license": "MIT",
   "scripts": {
-  	"start": "nodemon app.js --exec babel-node --presets env"
+    "start": "nodemon app.js --exec babel-node --presets env"
   },
   "dependencies": {
     "express": "^4.16.3",
